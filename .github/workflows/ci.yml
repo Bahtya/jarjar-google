@@ -29,7 +29,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ ubuntu-latest ]
-        java: [ 11 ]
+        java: [ 8 ]
         experimental: [ false ]
     runs-on: ${{ matrix.os }}
     continue-on-error: ${{ matrix.experimental }}
@@ -51,3 +51,10 @@ jobs:
       - name: 'Test'
         shell: bash
         run: ant test
+      - name: List build directory
+        run: ls -la 
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifacts
+          path: target.all.tar.gz
